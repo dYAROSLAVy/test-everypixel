@@ -11,6 +11,21 @@ export interface LoginResponse {
   };
 }
 
+export interface RegisterRequest {
+  email: string;
+  password: string;
+}
+
+export interface RegisterResponse {
+  id: string;
+  email: string;
+  accessToken: string;
+  user: {
+    id: string;
+    email: string;
+  };
+}
+
 export interface AuthState {
   token: string | null;
   isAuthenticated: boolean;

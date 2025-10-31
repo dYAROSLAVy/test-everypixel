@@ -1,3 +1,3 @@
 export { Button } from "./button";
 export { Input } from "./input";
-export { GoogleIcon, EyeIcon, EyeOffIcon } from "./icons";
+export { GoogleIcon, EyeIcon, EyeOffIcon, EverypixelLogo } from "./icons";

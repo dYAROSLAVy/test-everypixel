@@ -1,12 +1,28 @@
 import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom";
-import { LoginPage } from "../pages/login";
-import { HomePage } from "../pages/home";
-import { ProtectedRoute, PublicRoute } from "../shared/lib/protected-route";
+import { RegisterPage } from "@pages/register";
+import { HomePage } from "@pages/home";
+import { ProtectedRoute, PublicRoute } from "@shared/lib/protected-route";
+import { LoginPage } from "@pages/login";
+import { useEffect } from "react";
+import { useAppDispatch } from "./store";
 
 export const App = () => {
+  const dispatch = useAppDispatch();
+
+  useEffect(() => {
+  }, [dispatch]);
+
   return (
     <BrowserRouter>
       <Routes>
+        <Route
+          path="/register"
+          element={
+            <PublicRoute>
+              <RegisterPage />
+            </PublicRoute>
+          }
+        />
         <Route
           path="/login"
           element={

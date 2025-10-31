@@ -1,8 +1,8 @@
-import { LoginForm } from "@features/auth/login-form";
 import { EverypixelLogo } from "@shared/ui";
-import styles from "./login.module.scss";
+import styles from "./register.module.scss";
+import { RegisterForm } from "@features/auth/register-form/ui/register-form";
 
-export const LoginPage = () => {
+export const RegisterPage = () => {
   return (
     <div className="wrapper">
       <main>
@@ -14,17 +14,18 @@ export const LoginPage = () => {
         <section className={styles.section}>
           <div className="container">
             <div className={styles.inner}>
-              <LoginForm
+              <RegisterForm
                 className={styles.form}
-                title="Welcome Back 👋"
+                title="Step In. Create. Inspire."
                 subtitle={
                   <>
-                    Log in to access your projects and <br />
-                    bring your ideas to life
+                    AI-powered tools to bring your ideas
+                    <br />
+                    to life. Start your journey now!
                   </>
                 }
-                submitLabel="Log in"
-                googleLabel="Log in with Google"
+                submitLabel="Sign Up"
+                googleLabel="Sign Up with Google"
               />
               <div className={styles.imageContainer}>
                 <img

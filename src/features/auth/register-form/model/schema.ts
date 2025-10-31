@@ -1,9 +1,10 @@
 import { z } from "zod";
+import { emailValidator, passwordValidator } from "@shared/lib/validators";
 
 export const registerSchema = z.object({
-  email: z.string().email("Invalid email"),
-  password: z.string().min(6, "Min 6 characters"),
-  confirmPassword: z.string().min(6, "Min 6 characters"),
+  email: emailValidator,
+  password: passwordValidator,
+  confirmPassword: passwordValidator,
 }).refine((data) => data.password === data.confirmPassword, {
   message: "Passwords don't match",
   path: ["confirmPassword"],

@@ -1,5 +1,6 @@
 import { Navigate } from "react-router-dom";
 import { tokenStorage } from "./token-storage";
+import { ROUTES } from "@shared/config/routes";
 import type { ReactElement } from "react";
 
 interface ProtectedRouteProps {
@@ -13,7 +14,7 @@ interface PublicRouteProps {
 export const ProtectedRoute = ({ children }: ProtectedRouteProps) => {
   const token = tokenStorage.getToken();
   if (!token) {
-    return <Navigate to="/login" replace />;
+    return <Navigate to={ROUTES.LOGIN} replace />;
   }
   return children;
 };
@@ -21,7 +22,7 @@ export const ProtectedRoute = ({ children }: ProtectedRouteProps) => {
 export const PublicRoute = ({ children }: PublicRouteProps) => {
   const token = tokenStorage.getToken();
   if (token) {
-    return <Navigate to="/home" replace />;
+    return <Navigate to={ROUTES.HOME} replace />;
   }
   return children;
 };

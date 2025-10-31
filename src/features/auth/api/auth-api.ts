@@ -57,7 +57,6 @@ export const authApi = createApi({
         tokenStorage.setUserEmail(arg.email);
         return { 
           data: {
-            ...user,
             accessToken,
             user
           } 

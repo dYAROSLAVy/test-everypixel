@@ -3,20 +3,14 @@ import { RegisterPage } from "@pages/register";
 import { HomePage } from "@pages/home";
 import { ProtectedRoute, PublicRoute } from "@shared/lib/protected-route";
 import { LoginPage } from "@pages/login";
-import { useEffect } from "react";
-import { useAppDispatch } from "./store";
+import { ROUTES } from "@shared/config/routes";
 
 export const App = () => {
-  const dispatch = useAppDispatch();
-
-  useEffect(() => {
-  }, [dispatch]);
-
   return (
     <BrowserRouter>
       <Routes>
         <Route
-          path="/register"
+          path={ROUTES.REGISTER}
           element={
             <PublicRoute>
               <RegisterPage />
@@ -24,7 +18,7 @@ export const App = () => {
           }
         />
         <Route
-          path="/login"
+          path={ROUTES.LOGIN}
           element={
             <PublicRoute>
               <LoginPage />
@@ -32,15 +26,15 @@ export const App = () => {
           }
         />
         <Route
-          path="/home"
+          path={ROUTES.HOME}
           element={
             <ProtectedRoute>
               <HomePage />
             </ProtectedRoute>
           }
         />
-        <Route path="/" element={<Navigate to="/home" replace />} />
-        <Route path="*" element={<Navigate to="/home" replace />} />
+        <Route path={ROUTES.ROOT} element={<Navigate to={ROUTES.HOME} replace />} />
+        <Route path="*" element={<Navigate to={ROUTES.HOME} replace />} />
       </Routes>
     </BrowserRouter>
   );

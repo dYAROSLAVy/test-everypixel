@@ -1,43 +1,21 @@
 import { LoginForm } from "@features/auth/login-form";
-import { EverypixelLogo } from "@shared/ui";
+import { AuthLayout } from "@shared/ui";
 import styles from "./login.module.scss";
 
 export const LoginPage = () => {
   return (
-    <div className="wrapper">
-      <main>
-        <h1 className="visually-hidden">Sing Up form</h1>
-        <span className={styles.logo}>
-          <EverypixelLogo />
-        </span>
-
-        <section className={styles.section}>
-          <div className="container">
-            <div className={styles.inner}>
-              <LoginForm
-                className={styles.form}
-                title="Welcome Back 👋"
-                subtitle={
-                  <>
-                    Log in to access your projects and <br />
-                    bring your ideas to life
-                  </>
-                }
-                submitLabel="Log in"
-                googleLabel="Log in with Google"
-              />
-              <div className={styles.imageContainer}>
-                <img
-                  src="/bg.png"
-                  alt="Login illustration"
-                  width="1094"
-                  height="1040"
-                />
-              </div>
-            </div>
-          </div>
-        </section>
-      </main>
-    </div>
+    <AuthLayout formClassName={styles.form}>
+      <LoginForm
+        title="Welcome Back 👋"
+        subtitle={
+          <>
+            Log in to access your projects and <br />
+            bring your ideas to life
+          </>
+        }
+        submitLabel="Log in"
+        googleLabel="Log in with Google"
+      />
+    </AuthLayout>
   );
 };

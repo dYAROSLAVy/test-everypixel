@@ -7,6 +7,7 @@ interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   variant?: "primary";
   startIcon?: ReactNode;
   isLoading?: boolean;
+  loadingText?: string;
 }
 
 export const Button = ({
@@ -14,6 +15,7 @@ export const Button = ({
   variant,
   startIcon,
   isLoading = false,
+  loadingText = "Loading...",
   disabled,
   className = "",
   ...props
@@ -28,8 +30,8 @@ export const Button = ({
       disabled={disabled || isLoading}
       {...props}
     >
-      {startIcon && <span className={styles.button__icon}>{startIcon}</span>}
-      {isLoading ? "Loading..." : children}
+      {startIcon && !isLoading && <span className={styles.button__icon}>{startIcon}</span>}
+      {isLoading ? loadingText : children}
     </button>
   );
 };

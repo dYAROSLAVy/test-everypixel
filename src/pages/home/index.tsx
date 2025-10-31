@@ -1,6 +1,7 @@
 import { Button, EverypixelLogo } from "@shared/ui";
 import { useNavigate } from "react-router-dom";
 import { useLogoutMutation } from "@features/auth/api";
+import { ROUTES } from "@shared/config/routes";
 import { useEffect } from "react";
 import styles from "./home.module.scss";
 import { tokenStorage } from "@shared/lib/token-storage";
@@ -13,7 +14,7 @@ export const HomePage = () => {
 
   useEffect(() => {
     if (isSuccess) {
-      navigate("/login", { replace: true });
+      navigate(ROUTES.LOGIN, { replace: true });
     }
   }, [isSuccess, navigate]);
 

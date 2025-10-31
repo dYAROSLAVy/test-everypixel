@@ -1,2 +1,2 @@
 export { RegisterForm } from "./ui/register-form";
-export { loginSchema, type LoginFormValues } from "./model/schema";
+export { registerSchema, type RegisterFormValues } from "./model/schema";

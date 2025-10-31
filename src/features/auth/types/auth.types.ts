@@ -17,20 +17,9 @@ export interface RegisterRequest {
 }
 
 export interface RegisterResponse {
-  id: string;
-  email: string;
   accessToken: string;
   user: {
     id: string;
     email: string;
   };
-}
-
-export interface AuthState {
-  token: string | null;
-  isAuthenticated: boolean;
-  user: {
-    id: string | null;
-    email: string | null;
-  } | null;
 }

@@ -1,5 +1,6 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
-import type { LoginRequest, LoginResponse } from "../types/auth.types";
+import type { FetchBaseQueryError } from "@reduxjs/toolkit/query";
+import type { LoginRequest, LoginResponse, RegisterRequest, RegisterResponse } from "../types/auth.types";
 import { tokenStorage } from "../../../shared/lib/token-storage";
 
 const API_URL = "https://api.example.com";
@@ -18,26 +19,63 @@ export const authApi = createApi({
   }),
   endpoints: (builder) => ({
     login: builder.mutation<LoginResponse, LoginRequest>({
-      query: (credentials) => ({
-        url: "/auth/login",
-        method: "POST",
-        body: credentials,
-      }),
-      async onQueryStarted(_, { queryFulfilled }) {
-        try {
-          const { data } = await queryFulfilled;
-          if (data?.accessToken) {
-            tokenStorage.setToken(data.accessToken);
-          }
-        } catch (error) {
-          console.error("Login failed:", error);
+      async queryFn(arg) {
+        const { email, password } = arg;
+        await new Promise((r) => setTimeout(r, 600));
+        if (email && password) {
+          const data: LoginResponse = {
+            accessToken: `mock-jwt-token-${Date.now()}`,
+            user: { 
+              id: Date.now().toString(), 
+              email 
+            },
+          };
+          tokenStorage.setToken(data.accessToken);
+          tokenStorage.setUserEmail(email);
+          return { data };
         }
+        return {
+          error: {
+            status: 401,
+            data: { message: "Invalid credentials" },
+          } as FetchBaseQueryError,
+        };
       },
     }),
     validateToken: builder.query<{ valid: boolean }, void>({
       query: () => "/auth/validate",
     }),
+    register: builder.mutation<RegisterResponse, RegisterRequest>({
+      async queryFn(arg) {
+        await new Promise((r) => setTimeout(r, 600));
+        const accessToken = `mock-jwt-token-${Date.now()}`;
+        const user = {
+          id: Date.now().toString(),
+          email: arg.email,
+        };
+        tokenStorage.setToken(accessToken);
+        tokenStorage.setUserEmail(arg.email);
+        return { 
+          data: {
+            ...user,
+            accessToken,
+            user
+          } 
+        };
+      },
+    }),
+    logout: builder.mutation<void, void>({
+      queryFn: () => {
+        tokenStorage.clearToken();
+        return { data: undefined };
+      },
+    }),
   }),
 });
 
-export const { useLoginMutation, useValidateTokenQuery } = authApi;
+export const { 
+  useLoginMutation, 
+  useValidateTokenQuery, 
+  useRegisterMutation,
+  useLogoutMutation 
+} = authApi;
